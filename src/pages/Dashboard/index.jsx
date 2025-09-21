@@ -129,7 +129,7 @@ const Dashboard = () => {
           <Grid container spacing={2} mb={3} sx={{height:'100%'}}>
             <Box>
               <Grid item xs={12} md={5} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: theme.palette.background.paper, mb: 3 }}>
+                <Card sx={{ background:"#E3F5FF", mb: 3 }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -156,7 +156,7 @@ const Dashboard = () => {
               </Grid>
 
               <Grid item xs={12} md={3} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: theme.palette.background.paper }}>
+                <Card sx={{ background: '#F7F9FB' }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -185,7 +185,7 @@ const Dashboard = () => {
             </Box>
             <Box>
               <Grid item xs={12} md={3} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: theme.palette.background.paper, mb: 3 }}>
+                <Card sx={{ background: '#F7F9FB', mb: 3 }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -213,7 +213,7 @@ const Dashboard = () => {
               </Grid>
 
               <Grid item xs={12} md={3} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: theme.palette.background.paper }}>
+                <Card sx={{ background: "#E5ECF6" }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -242,7 +242,7 @@ const Dashboard = () => {
         </Box>
 
         <Box>
-          <Grid container spacing={3} mb={3} sx={{ minWidth: "150px" }}>
+          <Grid container spacing={3} mb={3} sx={{ minWidth: "150px" }} >
             {/* Bar Chart */}
             <Grid item xs={12} lg={6} sx={{ minWidth: "550px" }}>
               <Card sx={{ background: theme.palette.background.paper }}>
