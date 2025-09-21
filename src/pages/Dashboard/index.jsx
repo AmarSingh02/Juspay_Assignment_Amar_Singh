@@ -16,6 +16,7 @@ import {
   TableRow,
   Paper,
   LinearProgress,
+  useTheme,
 } from "@mui/material";
 import { TrendingUp, TrendingDown, MapPin } from "lucide-react";
 import {
@@ -98,8 +99,18 @@ const locationData = [
 ];
 
 const Dashboard = () => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   return (
-    <Box p={3} minHeight="100vh" sx={{background:'#fff'}}>
+    <Box 
+      p={3} 
+      minHeight="100vh" 
+      sx={{ 
+        background: theme.palette.background.default,
+        color: theme.palette.text.primary 
+      }}
+    >
       {/* Header */}
       <Box
         display="flex"
@@ -113,13 +124,12 @@ const Dashboard = () => {
       </Box>
 
       {/* Top Metrics */}
-
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box sx={{height:'100%'}}>
           <Grid container spacing={2} mb={3} sx={{height:'100%'}}>
             <Box>
-              <Grid item xs={12} md={5} sx={{ minWidth: "200px",  }}>
-                <Card sx={{ background: "#fff", mb: 3 }}>
+              <Grid item xs={12} md={5} sx={{ minWidth: "200px" }}>
+                <Card sx={{ background: theme.palette.background.paper, mb: 3 }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -146,7 +156,7 @@ const Dashboard = () => {
               </Grid>
 
               <Grid item xs={12} md={3} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: "#F7F9FB" }}>
+                <Card sx={{ background: theme.palette.background.paper }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -175,7 +185,7 @@ const Dashboard = () => {
             </Box>
             <Box>
               <Grid item xs={12} md={3} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: "#F7F9FB", mb: 3 }}>
+                <Card sx={{ background: theme.palette.background.paper, mb: 3 }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -183,7 +193,6 @@ const Dashboard = () => {
                       </Typography>
                     }
                   />
-                  
                   <CardContent
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
@@ -204,7 +213,7 @@ const Dashboard = () => {
               </Grid>
 
               <Grid item xs={12} md={3} sx={{ minWidth: "200px" }}>
-                <Card sx={{ background: "#E5ECF6" }}>
+                <Card sx={{ background: theme.palette.background.paper }}>
                   <CardHeader
                     title={
                       <Typography variant="body3" fontWeight={700}>
@@ -236,10 +245,9 @@ const Dashboard = () => {
           <Grid container spacing={3} mb={3} sx={{ minWidth: "150px" }}>
             {/* Bar Chart */}
             <Grid item xs={12} lg={6} sx={{ minWidth: "550px" }}>
-              <Card>
+              <Card sx={{ background: theme.palette.background.paper }}>
                 <CardHeader
                   title="Projections vs Actuals"
-                  
                 />
                 <CardContent>
                   <ResponsiveContainer width="100%" height={200}>
@@ -251,17 +259,28 @@ const Dashboard = () => {
                         left: 10,
                         bottom: 5,
                       }}
-                      borderRadius={{
-                        top: 50,
-                      }}
                     >
-                      <CartesianGrid strokeDasharray="2 2" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
+                      <CartesianGrid 
+                        strokeDasharray="2 2" 
+                        stroke={theme.palette.divider}
+                      />
+                      <XAxis 
+                        dataKey="month" 
+                        tick={{ fill: theme.palette.text.primary }}
+                      />
+                      <YAxis 
+                        tick={{ fill: theme.palette.text.primary }}
+                      />
+                      <Tooltip 
+                        contentStyle={{
+                          backgroundColor: theme.palette.background.paper,
+                          border: `1px solid ${theme.palette.divider}`,
+                          color: theme.palette.text.primary
+                        }}
+                      />
                       <Legend />
                       <Bar dataKey="value1" stackId="a" fill="#A8C5DA" />
-                      <Bar dataKey="value2" stackId="a" fill="#80808085" />
+                      <Bar dataKey="value2" stackId="a" fill={theme.palette.grey[400]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -272,100 +291,118 @@ const Dashboard = () => {
       </Box>
 
       <Box sx={{display:'flex', justifyContent:'space-between', marginBottom:'20px'}}>
-<Box >
-  {/* Revenue + Location Side by Side */}
-<Grid container spacing={3} mb={3}>
-  {/* Revenue (Line Chart) */}
-  <Grid item xs={12} md={6}>
-    <Card sx={{ background: "#f7f9fb", width:'720px', height: "100%" }}>
-      <CardHeader title="Revenue" />
-      <CardContent>
-        <ResponsiveContainer width="100%" height={250}>
-          <LineChart data={lineChartData}>
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="current"
-              stroke="#1976d2"
-              strokeWidth={2}
-              dot={false}
-              name="Current"
-            />
-            <Line
-              type="monotone"
-              dataKey="previous"
-              stroke="#1C1C1C"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              dot={false}
-              name="Previous"
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
-  </Grid>
+        <Box>
+          {/* Revenue + Location Side by Side */}
+          <Grid container spacing={3} mb={3}>
+            {/* Revenue (Line Chart) */}
+            <Grid item xs={12} md={6}>
+              <Card sx={{ background: theme.palette.background.paper, width:'720px', height: "100%" }}>
+                <CardHeader title="Revenue" />
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <LineChart data={lineChartData}>
+                      <XAxis 
+                        dataKey="month" 
+                        tick={{ fill: theme.palette.text.primary }}
+                      />
+                      <YAxis 
+                        tick={{ fill: theme.palette.text.primary }}
+                      />
+                      <Tooltip 
+                        contentStyle={{
+                          backgroundColor: theme.palette.background.paper,
+                          border: `1px solid ${theme.palette.divider}`,
+                          color: theme.palette.text.primary
+                        }}
+                      />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="current"
+                        stroke={theme.palette.primary.main}
+                        strokeWidth={2}
+                        dot={false}
+                        name="Current"
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="previous"
+                        stroke={theme.palette.text.primary}
+                        strokeWidth={2}
+                        strokeDasharray="5 5"
+                        dot={false}
+                        name="Previous"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </Grid>
 
-  {/* Revenue by Location */}
-  <Grid item xs={12} md={6}>
-    <Card sx={{ background: "#f7f9fb", height: "100%" }}>
-      <CardHeader title="Revenue by Location" />
-      <Box>
-        <img src={MapImg} alt="map" width="100%" height="120px" />
-      </Box>
-      <CardContent>
-        {locationData.map((loc, i) => (
-          <Box key={i} mb={2}>
-            {/* City + Value */}
-            <Box display="flex" justifyContent="space-between" mb={0.5}>
-              <Box display="flex" alignItems="center" gap={1}>
-                <MapPin size={16} color="gray" />
-                <Typography variant="body2">{loc.city}</Typography>
-              </Box>
-              <Typography variant="body2" fontWeight="bold">
-                {loc.value}
-              </Typography>
-            </Box>
+            {/* Revenue by Location */}
+            <Grid item xs={12} md={6}>
+              <Card sx={{ background: theme.palette.background.paper, height: "100%" }}>
+                <CardHeader title="Revenue by Location" />
+                <Box>
+                  <img 
+                    src={MapImg} 
+                    alt="map" 
+                    width="100%" 
+                    height="120px"
+                    style={{ 
+                      filter: isDarkMode ? 'invert(1) hue-rotate(180deg)' : 'none' 
+                    }}
+                  />
+                </Box>
+                <CardContent>
+                  {locationData.map((loc, i) => (
+                    <Box key={i} mb={2}>
+                      {/* City + Value */}
+                      <Box display="flex" justifyContent="space-between" mb={0.5}>
+                        <Box display="flex" alignItems="center" gap={1}>
+                          <MapPin 
+                            size={16} 
+                            color={theme.palette.text.secondary} 
+                          />
+                          <Typography variant="body2">{loc.city}</Typography>
+                        </Box>
+                        <Typography variant="body2" fontWeight="bold">
+                          {loc.value}
+                        </Typography>
+                      </Box>
 
-            {/* Progress bar */}
-            <LinearProgress
-              variant="determinate"
-              value={
-                parseInt(loc.value) || 0
-              } // assumes loc.value is like "72K" → you may parse %
-              sx={{
-                height: 6,
-                borderRadius: 5,
-                backgroundColor: "#e0e0e0",
-                "& .MuiLinearProgress-bar": {
-                  backgroundColor: "#1976d2",
-                },
-              }}
-            />
-          </Box>
-        ))}
-      </CardContent>
-    </Card>
-  </Grid>
-</Grid>
-
-
-
-       </Box>
-
-    
+                      {/* Progress bar */}
+                      <LinearProgress
+                        variant="determinate"
+                        value={parseInt(loc.value) || 0}
+                        sx={{
+                          height: 6,
+                          borderRadius: 5,
+                          backgroundColor: theme.palette.action.hover,
+                          "& .MuiLinearProgress-bar": {
+                            backgroundColor: theme.palette.primary.main,
+                          },
+                        }}
+                      />
+                    </Box>
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
 
       <Box sx={{ display: "flex", gap: "30px" }}>
         <Box sx={{ width: "700px" }}>
           {/* Products Table */}
-          <Card sx={{ background: "#F7F9FB" }}>
+          <Card sx={{ background: theme.palette.background.paper }}>
             <CardHeader title="Top Selling Products" />
-            <CardContent sx={{ background: "#F7F9FB" }}>
-              <TableContainer component={Paper} sx={{ background: "#F7F9FB" }}>
+            <CardContent sx={{ background: theme.palette.background.paper }}>
+              <TableContainer 
+                component={Paper} 
+                sx={{ background: theme.palette.background.paper }}
+              >
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -392,7 +429,7 @@ const Dashboard = () => {
         </Box>
         <Box sx={{ width: "300px" }}>
           <Grid item xs={12} lg={4}>
-            <Card sx={{ background: "#F7F9FB" }}>
+            <Card sx={{ background: theme.palette.background.paper }}>
               <CardHeader title="Total Sales" />
               <CardContent>
                 <ResponsiveContainer width="100%" height={200}>
