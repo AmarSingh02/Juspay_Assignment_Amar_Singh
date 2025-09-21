@@ -210,7 +210,7 @@ const OrderListTable = ({ data = sampleData }) => {
         <Typography variant='h6' fontWeight={600}  mb={2}>
             Order List
         </Typography>
-      <AppBar position="static" elevation={1} sx={{ background:'#F7F9FB' }}>
+      <AppBar position="static" elevation={1} sx={{ bgcolor: 'background.default'}}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box display="flex" alignItems="center" gap={1}>
           
